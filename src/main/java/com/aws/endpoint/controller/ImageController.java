@@ -9,16 +9,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class ImageController {
 
     private static final String UPLOAD_DIR = "/home/ec2-user/images";
+    private static final AtomicInteger counter = new AtomicInteger(0);
     @PutMapping("/upload")
     public String uploadImage(@RequestBody byte[] imageBytes) {
         try {
-            // Create a unique file name
-            String fileName = System.currentTimeMillis() + ".jpg";
+            int count = counter.incrementAndGet();
+            String fileName = count + ".jpg";
 
             // Define the path where the file will be saved
             String filePath = UPLOAD_DIR + "/" + fileName;
@@ -57,6 +59,12 @@ public class ImageController {
             // Return an error response
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/reset-counter")
+    public String resetCounter() {
+        counter.set(0);
+        return "Counter reset to 0";
     }
 
 }
