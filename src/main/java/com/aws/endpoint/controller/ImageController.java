@@ -1,5 +1,7 @@
 package com.aws.endpoint.controller;
 
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
@@ -48,8 +50,12 @@ public class ImageController {
             fis.close();
 
             // Create a response with the image bytes and appropriate headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+            headers.setContentDisposition(ContentDisposition.attachment().filename("image.png").build());
+
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_PNG)
+                    .headers(headers)
                     .body(imageBytes);
         } catch (IOException e) {
             e.printStackTrace();
