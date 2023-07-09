@@ -11,7 +11,7 @@ import java.io.IOException;
 @RestController
 public class ImageController {
 
-    private static final String UPLOAD_DIR = "C:\\uploads";
+    private static final String UPLOAD_DIR = "/home/ec2-user/images";
     @PutMapping("/upload")
     public String uploadImage(@RequestBody byte[] imageBytes) {
         try {
