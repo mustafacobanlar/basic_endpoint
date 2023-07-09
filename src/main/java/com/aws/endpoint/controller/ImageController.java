@@ -9,18 +9,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class ImageController {
 
     private static final String UPLOAD_DIR = "/home/ec2-user/images";
-    private static final AtomicInteger counter = new AtomicInteger(0);
     @PutMapping("/disparity")
     public String uploadImage(@RequestBody byte[] imageBytes) {
         try {
-            int count = counter.incrementAndGet();
-            String fileName = count + ".jpg";
+            String fileName = "image.png";
 
             // Define the path where the file will be saved
             String filePath = UPLOAD_DIR + "/" + fileName;
@@ -38,11 +35,11 @@ public class ImageController {
             return "Failed to upload image";
         }
     }
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable String fileName) {
+    @GetMapping("/download/image")
+    public ResponseEntity<byte[]> downloadImage() {
         try {
             // Define the path of the image file
-            String filePath = UPLOAD_DIR + "/" + fileName;
+            String filePath = UPLOAD_DIR + "/image.png";
 
             // Read the image file as a byte array
             File file = new File(filePath);
@@ -52,19 +49,13 @@ public class ImageController {
 
             // Create a response with the image bytes and appropriate headers
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
+                    .contentType(MediaType.IMAGE_PNG)
                     .body(imageBytes);
         } catch (IOException e) {
             e.printStackTrace();
             // Return an error response
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @PostMapping("/reset-counter")
-    public String resetCounter() {
-        counter.set(0);
-        return "Counter reset to 0";
     }
 
 }
