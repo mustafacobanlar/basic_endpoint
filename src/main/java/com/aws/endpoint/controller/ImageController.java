@@ -1,5 +1,7 @@
 package com.aws.endpoint.controller;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -61,6 +63,23 @@ public class ImageController {
             e.printStackTrace();
             // Return an error response
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(value = "/download/image", produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
+    public ResponseEntity<Resource> getImage() {
+        try {
+            Resource resource = new ClassPathResource(UPLOAD_DIR + "/image.png");
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_PNG)
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
         }
     }
 
