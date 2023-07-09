@@ -70,7 +70,7 @@ public class ImageController {
     public ResponseEntity<Resource> getImage() {
         try {
             // Load the image file from the resources directory
-            Resource resource = new ClassPathResource("/home/ec2-user/images/image.png");
+            Resource resource = new ClassPathResource("/images/image.png");
 
             // Return the image file as a response
             return ResponseEntity.ok()
