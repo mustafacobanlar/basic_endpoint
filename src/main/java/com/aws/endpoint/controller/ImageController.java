@@ -16,7 +16,7 @@ public class ImageController {
 
     private static final String UPLOAD_DIR = "/home/ec2-user/images";
     private static final AtomicInteger counter = new AtomicInteger(0);
-    @PutMapping("/upload")
+    @PutMapping("/disparity")
     public String uploadImage(@RequestBody byte[] imageBytes) {
         try {
             int count = counter.incrementAndGet();
