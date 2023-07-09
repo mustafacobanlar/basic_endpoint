@@ -39,7 +39,7 @@ public class ImageController {
             return "Failed to upload image";
         }
     }
-    @GetMapping("/download/image.png")
+    @GetMapping("/download/image")
     public ResponseEntity<byte[]> downloadImage() {
         try {
             // Define the path of the image file
@@ -66,20 +66,4 @@ public class ImageController {
         }
     }
 
-    @GetMapping(value = "/api", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<Resource> getImage() {
-        try {
-            // Load the image file from the resources directory
-            Resource resource = new ClassPathResource("/images/image.png");
-
-            // Return the image file as a response
-            return ResponseEntity.ok()
-                    .contentLength(resource.contentLength())
-                    .body(resource);
-        } catch (Exception e) {
-            // Handle any exceptions that occur
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
-    }
 }
