@@ -39,8 +39,8 @@ public class ImageController {
             return "Failed to upload image";
         }
     }
-    /*@GetMapping("/download/{imageName}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable String imageName) {
+    @GetMapping("/download/image.png")
+    public ResponseEntity<byte[]> downloadImage() {
         try {
             // Define the path of the image file
             String filePath = UPLOAD_DIR + "/image.png";
@@ -57,30 +57,13 @@ public class ImageController {
             headers.setContentDisposition(ContentDisposition.attachment().filename("image.png").build());
 
             return ResponseEntity.ok()
-                    .headers(headers)
+                    .contentType(MediaType.IMAGE_PNG)
                     .body(imageBytes);
         } catch (IOException e) {
             e.printStackTrace();
             // Return an error response
             return ResponseEntity.notFound().build();
         }
-    }*/
-
-    @GetMapping(value = "/download/image", produces = MediaType.IMAGE_PNG_VALUE)
-    @ResponseBody
-    public ResponseEntity<Resource> getImage() {
-        try {
-            Resource resource = new ClassPathResource(UPLOAD_DIR + "/image.png");
-            if (resource.exists()) {
-                return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_PNG)
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
     }
-
+    
 }
