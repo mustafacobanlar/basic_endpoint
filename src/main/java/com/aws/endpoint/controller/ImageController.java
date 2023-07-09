@@ -35,7 +35,7 @@ public class ImageController {
             return "Failed to upload image";
         }
     }
-    @GetMapping("/download/image")
+    @GetMapping("/download/image.png")
     public ResponseEntity<byte[]> downloadImage() {
         try {
             // Define the path of the image file
