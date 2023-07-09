@@ -1,6 +1,7 @@
 package com.aws.endpoint.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 public class ImageController {
 
     private static final String UPLOAD_DIR = "C:\\uploads";
-    @PostMapping("/upload")
+    @PutMapping("/upload")
     public String uploadImage(@RequestBody byte[] imageBytes) {
         try {
             // Create a unique file name
