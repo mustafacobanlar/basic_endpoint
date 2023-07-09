@@ -39,7 +39,7 @@ public class ImageController {
             return "Failed to upload image";
         }
     }
-    @GetMapping("/download/{imageName}")
+    /*@GetMapping("/download/{imageName}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable String imageName) {
         try {
             // Define the path of the image file
@@ -64,7 +64,7 @@ public class ImageController {
             // Return an error response
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 
     @GetMapping(value = "/download/image", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
